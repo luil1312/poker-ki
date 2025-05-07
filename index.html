@@ -1,16 +1,43 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Poker KI</title>
-  </head>
-  <body>
-    <h1>Poker Kamera KI</h1>
-    <video id="video" width="320" height="240" autoplay></video>
-    <script>
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => {
-          document.getElementById('video').srcObject = stream;
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Poker-KI Kamera</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      color: white;
+      text-align: center;
+    }
+    video {
+      width: 100%;
+      height: auto;
+      transform: scaleX(-1); /* Spiegelt das Bild nicht – kannst du entfernen */
+    }
+  </style>
+</head>
+<body>
+  <h1>Poker-KI Kamera</h1>
+  <video id="video" autoplay playsinline></video>
+  <script>
+    async function startCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: { exact: "environment" } // Rückkamera
+          },
+          audio: false
         });
-    </script>
-  </body>
+        const videoElement = document.getElementById('video');
+        videoElement.srcObject = stream;
+      } catch (err) {
+        console.error('Kamera konnte nicht gestartet werden:', err);
+        alert('Kamera konnte nicht gestartet werden. Bitte gib Zugriff frei oder wechsle den Browser.');
+      }
+    }
+
+    startCamera();
+  </script>
+</body>
 </html>
