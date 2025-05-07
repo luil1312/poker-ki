@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Poker-KI Kamera (gespiegelt)</title>
+  <title>Poker-KI Kamera</title>
   <style>
     body {
       margin: 0;
@@ -13,30 +13,28 @@
     video {
       width: 100%;
       height: auto;
-      transform: scaleX(-1); /* Spiegelung */
       object-fit: cover;
     }
   </style>
 </head>
 <body>
-  <h1>Poker-Kamera: Rückseite & gespiegelt</h1>
+  <h1>Poker-Kamera (Rückansicht)</h1>
   <video id="video" autoplay playsinline></video>
   <script>
     async function startCamera() {
       try {
         const constraints = {
           video: {
-            facingMode: { ideal: "environment" } // Rückkamera bevorzugt
+            facingMode: { ideal: "environment" } // Rückkamera
           },
           audio: false
         };
-
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
         const video = document.getElementById('video');
         video.srcObject = stream;
       } catch (error) {
-        console.error('Fehler beim Start der Kamera:', error);
-        alert('Konnte die Rückkamera nicht starten. Erlaube den Kamerazugriff oder prüfe die Berechtigungen.');
+        console.error('Kamera konnte nicht gestartet werden:', error);
+        alert('Kamerazugriff verweigert oder nicht verfügbar.');
       }
     }
 
